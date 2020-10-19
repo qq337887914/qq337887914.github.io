@@ -277,6 +277,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-入门杂记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/10/19/%E5%85%A5%E9%97%A8%E6%9D%82%E8%AE%B0/" class="article-date">
+      <time datetime="2020-10-19T13:04:48.000Z" itemprop="datePublished">2020-10-19</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/10/19/%E5%85%A5%E9%97%A8%E6%9D%82%E8%AE%B0/">入门杂记</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="入门杂记"><a href="#入门杂记" class="headerlink" title="入门杂记"></a>入门杂记</h1><h3 id="1、JDK，JRE，JVM三者的关系是什么？"><a href="#1、JDK，JRE，JVM三者的关系是什么？" class="headerlink" title="1、JDK，JRE，JVM三者的关系是什么？"></a>1、JDK，JRE，JVM三者的关系是什么？</h3><p>答：<img src="C:\Users\admin08\Desktop\JJJ.png"></p>
+<p>JDK：Java开发工具包，目前使用最多的就是jdk1.8。</p>
+<p>JRE：是Java的运行环境。</p>
+<p>JVM：Java虚拟机。</p>
+<p>调用顺序：我们使用开发工具（eclipse，IDEA等）编写好我们的程序，在powershell中使用javac命令就是编译过程，也就是使用JDK的过程；使用javac命令后，生成的.class文件在JRE上运行，通过JVM解析，最后映射到我们的操作系统上。</p>
+<p><img src="C:\Users\admin08\Desktop\javac.png"></p>
+<h3 id="2-小知识"><a href="#2-小知识" class="headerlink" title="2.小知识"></a>2.小知识</h3><ul>
+<li>一个java文件中只能有一个public类，且类名与文件名必须相同；</li>
+<li>一个字节8位，int型变量是4个字节，即int型变量是32位，首位为符号位，1为负，0为正，最大值为：2^31;</li>
+<li>关于数据整型数据溢出问题见下图（其他数据类型类似）,如果所示，当数据从1增大至最大2^31 时，此时再加1就数据溢出，值变为 -2^31：<img src="C:\Users\admin08\Desktop\整型数据溢出.png"></li>
+<li>double类型8个字节，可以精确表示小数点后16位；float4个字节，可以精确表示小数点后6位；初始化 eg：float f = 12.5f;初始化float型变量后必须加上’f’，因为小数默认为double类型。</li>
+<li>java当中有8种基本的数据类型：byte，short，int，long，float，double，char，boolean；</li>
+<li>==在java中没有   “0是假，非0是真”这个说法。==</li>
+<li>boolean型变量只有两个值：true和false。没有0和1。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-手撕顺序表" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
