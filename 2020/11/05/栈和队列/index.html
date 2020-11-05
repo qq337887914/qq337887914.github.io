@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
+  
+  
+  
+  
+  <title>栈和队列 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="栈和队列(力扣)1、股票价格跨度编写一个 StockSpanner 类，它收集某些股票的每日报价，并返回该股票当日价格的跨度。 今天股票价格的跨度被定义为股票价格小于或等于今天价格的最大连续日数（从今天开始往回数，包括今天）。 例如，如果未来7天股票的价格是 [100, 80, 60, 70, 60, 75, 85]，那么股票跨度将是 [1, 1, 1, 2, 1, 4, 6]。 示例： 输入：[">
+<meta property="og:type" content="article">
+<meta property="og:title" content="栈和队列">
+<meta property="og:url" content="http://example.com/2020/11/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="栈和队列(力扣)1、股票价格跨度编写一个 StockSpanner 类，它收集某些股票的每日报价，并返回该股票当日价格的跨度。 今天股票价格的跨度被定义为股票价格小于或等于今天价格的最大连续日数（从今天开始往回数，包括今天）。 例如，如果未来7天股票的价格是 [100, 80, 60, 70, 60, 75, 85]，那么股票跨度将是 [1, 1, 1, 2, 1, 4, 6]。 示例： 输入：[">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/admin08/Desktop/股票价格跨度.png">
+<meta property="article:published_time" content="2020-11-05T13:13:02.000Z">
+<meta property="article:modified_time" content="2020-11-05T13:13:31.711Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/admin08/Desktop/股票价格跨度.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="img/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: true
+      }
+  </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="img/avatar.png" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/"></a></h1>
+        </hgroup>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a  href="/archives/">所有文章</a></li>
+                        
+                            <li><a  href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">玩转开发工具</a></li>
+                        
+                            <li><a  href="/categories/digital">玩转数码</a></li>
+                        
+                            <li><a  href="/categories/algorithm">算法学习</a></li>
+                        
+                            <li><a  href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github"  target="_blank" href="https://github.com/qq337887914/qq337887914.github.io" title="github">github</a>
+                            
+                                <a class="fl weibo"  target="_blank" href="https://weibo.com/6413144453/profile?rightmod=1&wvr=6&mod=personinfo" title="weibo">weibo</a>
+                            
+                                <a class="fl rss"  target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://blog.csdn.net/fangluana">csdn</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://segmentfault.com/blog/maocg_web">segmentfault</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/eb37ef89c746/latest_articles">简书</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">爱动漫,爱游戏,爱编程,爱运动,爱的太多了!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页"></a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="img/avatar.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页"></a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">玩转开发工具</a></li>
+                
+                    <li><a href="/categories/digital">玩转数码</a></li>
+                
+                    <li><a href="/categories/algorithm">算法学习</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/qq337887914/qq337887914.github.io" title="github">github</a>
+                    
+                        <a class="weibo" target="_blank" href="https://weibo.com/6413144453/profile?rightmod=1&wvr=6&mod=personinfo" title="weibo">weibo</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-栈和队列" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/11/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" class="article-date">
+      <time datetime="2020-11-05T13:13:02.000Z" itemprop="datePublished">2020-11-05</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      栈和队列
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="栈和队列-力扣"><a href="#栈和队列-力扣" class="headerlink" title="栈和队列(力扣)"></a>栈和队列(力扣)</h1><h2 id="1、股票价格跨度"><a href="#1、股票价格跨度" class="headerlink" title="1、股票价格跨度"></a>1、股票价格跨度</h2><p>编写一个 StockSpanner 类，它收集某些股票的每日报价，并返回该股票当日价格的跨度。</p>
+<p>今天股票价格的跨度被定义为股票价格小于或等于今天价格的最大连续日数（从今天开始往回数，包括今天）。</p>
+<p>例如，如果未来7天股票的价格是 [100, 80, 60, 70, 60, 75, 85]，那么股票跨度将是 [1, 1, 1, 2, 1, 4, 6]。</p>
+<p>示例：</p>
+<p>输入：[“StockSpanner”,”next”,”next”,”next”,”next”,”next”,”next”,”next”], [[],[100],[80],[60],[70],[60],[75],[85]]<br>输出：[null,1,1,1,2,1,4,6]<br>解释：<br>首先，初始化 S = StockSpanner()，然后：<br>S.next(100) 被调用并返回 1，<br>S.next(80) 被调用并返回 1，<br>S.next(60) 被调用并返回 1，<br>S.next(70) 被调用并返回 2，<br>S.next(60) 被调用并返回 1，<br>S.next(75) 被调用并返回 4，<br>S.next(85) 被调用并返回 6。</p>
+<p>注意 (例如) S.next(75) 返回 4，因为截至今天的最后 4 个价格<br>(包括今天的价格 75) 小于或等于今天的价格。</p>
+<p>对单调栈的理解和使用。</p>
+<p>​        对于一个单调递减的单调栈，若出现出现栈顶小于等于要压如栈的元素，则将此时栈顶的元素弹出，直到栈顶元素大于要压如的元素，将此元素压入栈。可以自己画图理解，下图为我自己的画图最后的结果。</p>
+<p><img src="C:\Users\admin08\Desktop\股票价格跨度.png" alt="image-20201103234634995"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StockSpanner</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> Stack&lt;Integer&gt; prices;</span><br><span class="line">    <span class="keyword">public</span> Stack&lt;Integer&gt; weights;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StockSpanner</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        prices = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        weights = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">next</span><span class="params">(<span class="keyword">int</span> price)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> step = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(!prices.isEmpty() &amp;&amp; prices.peek()&lt;=price)&#123;</span><br><span class="line">            prices.pop();</span><br><span class="line">            step += weights.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        prices.push(price);</span><br><span class="line">        weights.push(step);</span><br><span class="line">        <span class="keyword">return</span> step;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your StockSpanner object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * StockSpanner obj = new StockSpanner();</span></span><br><span class="line"><span class="comment"> * int param_1 = obj.next(price);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2、逆波兰表达式求值"><a href="#2、逆波兰表达式求值" class="headerlink" title="2、逆波兰表达式求值"></a>2、逆波兰表达式求值</h2><p>根据 逆波兰表示法，求表达式的值。</p>
+<p>有效的运算符包括 +, -, *, / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。</p>
+<p>说明：</p>
+<p>整数除法只保留整数部分。<br>给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。</p>
+<p>示例 1：</p>
+<p>输入: [“2”, “1”, “+”, “3”, “*”]<br>输出: 9<br>解释: 该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9<br>示例 2：</p>
+<p>输入: [“4”, “13”, “5”, “/“, “+”]<br>输出: 6<br>解释: 该算式转化为常见的中缀算术表达式为：(4 + (13 / 5)) = 6<br>示例 3：</p>
+<p>输入: [“10”, “6”, “9”, “3”, “+”, “-11”, “<em>“, “/“, “</em>“, “17”, “+”, “5”, “+”]<br>输出: 22<br>解释:<br>该算式转化为常见的中缀算术表达式为：<br>  ((10 * (6 / ((9 + 3) * -11))) + 17) + 5<br>= ((10 * (6 / (12 * -11))) + 17) + 5<br>= ((10 * (6 / -132)) + 17) + 5<br>= ((10 * 0) + 17) + 5<br>= (0 + 17) + 5<br>= 17 + 5<br>= 22</p>
+<p>逆波兰表达式：</p>
+<p>逆波兰表达式是一种后缀表达式，所谓后缀就是指算符写在后面。</p>
+<p>平常使用的算式则是一种中缀表达式，如 ( 1 + 2 ) * ( 3 + 4 ) 。<br>该算式的逆波兰表达式写法为 ( ( 1 2 + ) ( 3 4 + ) * ) 。<br>逆波兰表达式主要有以下两个优点：</p>
+<p>去掉括号后表达式无歧义，上式即便写成 1 2 + 3 4 + * 也可以依据次序计算出正确结果。<br>*<u><strong>适合用栈操作运算：遇到数字则入栈；遇到算符则取出栈顶两个数字进行计算，并将结果压入栈中。</strong></u>*</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation">https://leetcode-cn.com/problems/evaluate-reverse-polish-notation</a></p>
+<p>同一种方法，一种用switch-case解决，另一种用if-else解决；</p>
+<p>switch-case 运行时间：6ms  ，内存消耗：38.2mb；</p>
+<p>if-else           运行时间：11ms，内存消耗：38.1mb。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">evalRPN</span><span class="params">(String[] tokens)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; num = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> a ,b;</span><br><span class="line">        <span class="keyword">for</span> (String s:tokens) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (s)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">                    a = num.pop();</span><br><span class="line">                    b = num.pop();</span><br><span class="line">                    num.push(b+a);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;-&quot;</span>:</span><br><span class="line">                    a = num.pop();</span><br><span class="line">                    b = num.pop();</span><br><span class="line">                    num.push(b-a);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;*&quot;</span>:</span><br><span class="line">                    a = num.pop();</span><br><span class="line">                    b = num.pop();</span><br><span class="line">                    num.push(b*a);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;/&quot;</span>:</span><br><span class="line">                    a = num.pop();</span><br><span class="line">                    b = num.pop();</span><br><span class="line">                    num.push(b/a);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    num.push(Integer.valueOf(s));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">evalRPN</span><span class="params">(String[] tokens)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; num = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> a,b;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;tokens.length ; i++) &#123;</span><br><span class="line">            String str = tokens[i];</span><br><span class="line">            <span class="keyword">if</span> (str.equals(<span class="string">&quot;+&quot;</span>))&#123;</span><br><span class="line">                a = num.pop();</span><br><span class="line">                b = num.pop();</span><br><span class="line">                num.push(a+b);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (str.equals(<span class="string">&quot;-&quot;</span>))&#123;</span><br><span class="line">                a = num.pop();</span><br><span class="line">                b = num.pop();</span><br><span class="line">                num.push(b-a);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (str.equals(<span class="string">&quot;*&quot;</span>))&#123;</span><br><span class="line">                a = num.pop();</span><br><span class="line">                b = num.pop();</span><br><span class="line">                num.push(a*b);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (str.equals(<span class="string">&quot;/&quot;</span>))&#123;</span><br><span class="line">                a = num.pop();</span><br><span class="line">                b = num.pop();</span><br><span class="line">                num.push(b/a);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                num.push(Integer.valueOf(str));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo4</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        String[] str =&#123;<span class="string">&quot;4&quot;</span>,<span class="string">&quot;13&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;/&quot;</span>,<span class="string">&quot;+&quot;</span>&#125;;</span><br><span class="line">        System.out.println(solution.evalRPN(str));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3、栈的弹出压入序列（牛客网）"><a href="#3、栈的弹出压入序列（牛客网）" class="headerlink" title="3、栈的弹出压入序列（牛客网）"></a>3、栈的弹出压入序列（牛客网）</h2><p>题目描述：</p>
+<p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">思路：</span><br><span class="line">1、设计一个空栈作为辅助栈；</span><br><span class="line">2、将压入数组依次压入，每压入一个和弹出数组第一个做比较，若相等，则将栈顶元素弹出，若不等，则继续压入下一个压入数组的元素；</span><br><span class="line">3、当压入数组的元素全部压入，此时，若判定完成，栈中无元素，则证明该弹出数组序列是压入数组序列的一个顺序，若栈中扔有元素，则证明此弹出数组序列不是压入数组的一个弹出序列。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">IsPopOrder</span><span class="params">(<span class="keyword">int</span> [] pushA,<span class="keyword">int</span> [] popA)</span> </span>&#123;</span><br><span class="line">      Stack&lt;Integer&gt; st1 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i&lt;popA.length &amp;&amp; j&lt;pushA.length)&#123;</span><br><span class="line">            st1.push(pushA[i++]);</span><br><span class="line">            <span class="keyword">while</span> (!st1.isEmpty() &amp;&amp; st1.peek() == popA[j]) &#123;</span><br><span class="line">                st1.pop();</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> st1.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4、棒球比赛"><a href="#4、棒球比赛" class="headerlink" title="4、棒球比赛"></a>4、棒球比赛</h2><p>你现在是一场采特殊赛制棒球比赛的记录员。这场比赛由若干回合组成，过去几回合的得分可能会影响以后几回合的得分。</p>
+<p>比赛开始时，记录是空白的。你会得到一个记录操作的字符串列表 ops，其中 ops[i] 是你需要记录的第 i 项操作，ops 遵循下述规则：</p>
+<p>整数 x - 表示本回合新获得分数 x<br>“+” - 表示本回合新获得的得分是前两次得分的总和。题目数据保证记录此操作时前面总是存在两个有效的分数。<br>“D” - 表示本回合新获得的得分是前一次得分的两倍。题目数据保证记录此操作时前面总是存在一个有效的分数。<br>“C” - 表示前一次得分无效，将其从记录中移除。题目数据保证记录此操作时前面总是存在一个有效的分数。<br>请你返回记录中所有得分的总和。</p>
+<p>示例 1：</p>
+<p>输入：ops = [“5”,”2”,”C”,”D”,”+”]<br>输出：30<br>解释：<br>“5” - 记录加 5 ，记录现在是 [5]<br>“2” - 记录加 2 ，记录现在是 [5, 2]<br>“C” - 使前一次得分的记录无效并将其移除，记录现在是 [5].<br>“D” - 记录加 2 * 5 = 10 ，记录现在是 [5, 10].<br>“+” - 记录加 5 + 10 = 15 ，记录现在是 [5, 10, 15].<br>所有得分的总和 5 + 10 + 15 = 30<br>示例 2：</p>
+<p>输入：ops = [“5”,”-2”,”4”,”C”,”D”,”9”,”+”,”+”]<br>输出：27<br>解释：<br>“5” - 记录加 5 ，记录现在是 [5]<br>“-2” - 记录加 -2 ，记录现在是 [5, -2]<br>“4” - 记录加 4 ，记录现在是 [5, -2, 4]<br>“C” - 使前一次得分的记录无效并将其移除，记录现在是 [5, -2]<br>“D” - 记录加 2 * -2 = -4 ，记录现在是 [5, -2, -4]<br>“9” - 记录加 9 ，记录现在是 [5, -2, -4, 9]<br>“+” - 记录加 -4 + 9 = 5 ，记录现在是 [5, -2, -4, 9, 5]<br>“+” - 记录加 9 + 5 = 14 ，记录现在是 [5, -2, -4, 9, 5, 14]<br>所有得分的总和 5 + -2 + -4 + 9 + 5 + 14 = 27<br>示例 3：</p>
+<p>输入：ops = [“1”]<br>输出：1</p>
+<p>提示：</p>
+<p>1 &lt;= ops.length &lt;= 1000<br>ops[i] 为 “C”、”D”、”+”，或者一个表示整数的字符串。整数范围是 [-3 * 104, 3 * 104]<br>对于 “+” 操作，题目数据保证记录此操作时前面总是存在两个有效的分数<br>对于 “C” 和 “D” 操作，题目数据保证记录此操作时前面总是存在一个有效的分数</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/baseball-game">https://leetcode-cn.com/problems/baseball-game</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、一种，如下列代码，通过if-else实现，另一种是通过switch-case来实现，显然switch-case运算速度更快。</span><br><span class="line">2、使用switch-case时，注意空栈异常的情况。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calPoints</span><span class="params">(String[] ops)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (String s:ops) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.equals(<span class="string">&quot;+&quot;</span>))&#123;</span><br><span class="line">                <span class="keyword">int</span> top = stack.pop();</span><br><span class="line">                <span class="keyword">int</span> newtop = top + stack.peek();</span><br><span class="line">                stack.push(top);</span><br><span class="line">                stack.push(newtop);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;C&quot;</span>))&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;D&quot;</span>))&#123;</span><br><span class="line">                stack.push(<span class="number">2</span>*stack.peek());</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                stack.push(Integer.valueOf(s));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i:stack) &#123;</span><br><span class="line">            sum+=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5、比较含退格的字符串"><a href="#5、比较含退格的字符串" class="headerlink" title="5、比较含退格的字符串"></a>5、比较含退格的字符串</h2><p>给定 S 和 T 两个字符串，当它们分别被输入到空白的文本编辑器后，判断二者是否相等，并返回结果。 # 代表退格字符。</p>
+<p>注意：如果对空文本输入退格字符，文本继续为空。</p>
+<p>示例 1：</p>
+<p>输入：S = “ab#c”, T = “ad#c”<br>输出：true<br>解释：S 和 T 都会变成 “ac”。<br>示例 2：</p>
+<p>输入：S = “ab##”, T = “c#d#”<br>输出：true<br>解释：S 和 T 都会变成 “”。<br>示例 3：</p>
+<p>输入：S = “a##c”, T = “#a#c”<br>输出：true<br>解释：S 和 T 都会变成 “c”。<br>示例 4：</p>
+<p>输入：S = “a#c”, T = “b”<br>输出：false<br>解释：S 会变成 “c”，但 T 仍然是 “b”。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/backspace-string-compare">https://leetcode-cn.com/problems/backspace-string-compare</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">backspaceCompare</span><span class="params">(String S, String T)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Character&gt; s1 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        Stack&lt;Character&gt; s2 = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">char</span> [] c1 = S.toCharArray();</span><br><span class="line">        <span class="keyword">char</span> [] c2 = T.toCharArray();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;c1.length ; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (c1[i]==<span class="string">&#x27;#&#x27;</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (s1.isEmpty())&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                s1.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                s1.push(c1[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;c2.length ; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (c2[j]==<span class="string">&#x27;#&#x27;</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (s2.isEmpty())&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                s2.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                s2.push(c2[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s1.equals(s2);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、设计循环双端队列"><a href="#6、设计循环双端队列" class="headerlink" title="6、设计循环双端队列"></a>6、设计循环双端队列</h2><p>设计实现双端队列。<br>你的实现需要支持以下操作：</p>
+<p>MyCircularDeque(k)：构造函数,双端队列的大小为k。<br>insertFront()：将一个元素添加到双端队列头部。 如果操作成功返回 true。<br>insertLast()：将一个元素添加到双端队列尾部。如果操作成功返回 true。<br>deleteFront()：从双端队列头部删除一个元素。 如果操作成功返回 true。<br>deleteLast()：从双端队列尾部删除一个元素。如果操作成功返回 true。<br>getFront()：从双端队列头部获得一个元素。如果双端队列为空，返回 -1。<br>getRear()：获得双端队列的最后一个元素。 如果双端队列为空，返回 -1。<br>isEmpty()：检查双端队列是否为空。<br>isFull()：检查双端队列是否满了。<br>示例：</p>
+<p>MyCircularDeque circularDeque = new MycircularDeque(3); // 设置容量大小为3<br>circularDeque.insertLast(1);                    // 返回 true<br>circularDeque.insertLast(2);                    // 返回 true<br>circularDeque.insertFront(3);                    // 返回 true<br>circularDeque.insertFront(4);                    // 已经满了，返回 false<br>circularDeque.getRear();                  // 返回 2<br>circularDeque.isFull();                        // 返回 true<br>circularDeque.deleteLast();                    // 返回 true<br>circularDeque.insertFront(4);                    // 返回 true<br>circularDeque.getFront();                // 返回 4</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/design-circular-deque">https://leetcode-cn.com/problems/design-circular-deque</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyCircularDeque</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> front;</span><br><span class="line">    <span class="keyword">int</span> rear;</span><br><span class="line">    <span class="keyword">int</span>[] elem;</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. Set the size of the deque to be k. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyCircularDeque</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        elem = <span class="keyword">new</span> <span class="keyword">int</span> [k+<span class="number">1</span>];</span><br><span class="line">        front = <span class="number">0</span>;</span><br><span class="line">        rear = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Adds an item at the front of Deque. Return true if the operation is successful. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">insertFront</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isFull())</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        front = (front-<span class="number">1</span>+<span class="keyword">this</span>.elem.length) % <span class="keyword">this</span>.elem.length;</span><br><span class="line">        <span class="keyword">this</span>.elem[front] = value;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Adds an item at the rear of Deque. Return true if the operation is successful. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">insertLast</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isFull())</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">this</span>.elem[rear] = value;</span><br><span class="line">        rear = (rear+<span class="number">1</span>) % <span class="keyword">this</span>.elem.length;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Deletes an item from the front of Deque. Return true if the operation is successful. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">deleteFront</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isEmpty())</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        front = (front+<span class="number">1</span>) % <span class="keyword">this</span>.elem.length;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Deletes an item from the rear of Deque. Return true if the operation is successful. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">deleteLast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isEmpty())</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        rear = (rear - <span class="number">1</span> + <span class="keyword">this</span>.elem.length) % <span class="keyword">this</span>.elem.length;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Get the front item from the deque. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getFront</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isEmpty())</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.elem[front];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Get the last item from the deque. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isEmpty())</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.elem[(rear -<span class="number">1</span> +<span class="keyword">this</span>.elem.length) % <span class="keyword">this</span>.elem.length];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Checks whether the circular deque is empty or not. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> front == rear;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Checks whether the circular deque is full or not. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFull</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (rear+<span class="number">1</span>)%<span class="keyword">this</span>.elem.length == front;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7、员工重要性（太菜，以下题目过段时间再写）"><a href="#7、员工重要性（太菜，以下题目过段时间再写）" class="headerlink" title="7、员工重要性（太菜，以下题目过段时间再写）"></a>7、员工重要性（太菜，以下题目过段时间再写）</h2><p>给定一个保存员工信息的数据结构，它包含了员工唯一的id，重要度 和 直系下属的id。</p>
+<p>比如，员工1是员工2的领导，员工2是员工3的领导。他们相应的重要度为15, 10, 5。那么员工1的数据结构是[1, 15, [2]]，员工2的数据结构是[2, 10, [3]]，员工3的数据结构是[3, 5, []]。注意虽然员工3也是员工1的一个下属，但是由于并不是直系下属，因此没有体现在员工1的数据结构中。</p>
+<p>现在输入一个公司的所有员工信息，以及单个员工id，返回这个员工和他所有下属的重要度之和。</p>
+<p>示例 1:</p>
+<p>输入: [[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], 1<br>输出: 11<br>解释:<br>员工1自身的重要度是5，他有两个直系下属2和3，而且2和3的重要度均为3。因此员工1的总重要度是 5 + 3 + 3 = 11。<br>注意:</p>
+<p>一个员工最多有一个直系领导，但是可以有多个直系下属<br>员工数量不超过2000。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/employee-importance">https://leetcode-cn.com/problems/employee-importance</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="8、员工的重要性"><a href="#8、员工的重要性" class="headerlink" title="8、员工的重要性"></a>8、员工的重要性</h2><p>给定一个保存员工信息的数据结构，它包含了员工唯一的id，重要度 和 直系下属的id。</p>
+<p>比如，员工1是员工2的领导，员工2是员工3的领导。他们相应的重要度为15, 10, 5。那么员工1的数据结构是[1, 15, [2]]，员工2的数据结构是[2, 10, [3]]，员工3的数据结构是[3, 5, []]。注意虽然员工3也是员工1的一个下属，但是由于并不是直系下属，因此没有体现在员工1的数据结构中。</p>
+<p>现在输入一个公司的所有员工信息，以及单个员工id，返回这个员工和他所有下属的重要度之和。</p>
+<p>示例 1:</p>
+<p>输入: [[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], 1<br>输出: 11<br>解释:<br>员工1自身的重要度是5，他有两个直系下属2和3，而且2和3的重要度均为3。因此员工1的总重要度是 5 + 3 + 3 = 11。<br>注意:</p>
+<p>一个员工最多有一个直系领导，但是可以有多个直系下属<br>员工数量不超过2000。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/employee-importance">https://leetcode-cn.com/problems/employee-importance</a></p>
+<h2 id="9、猫狗收容所（牛客网）"><a href="#9、猫狗收容所（牛客网）" class="headerlink" title="9、猫狗收容所（牛客网）"></a>9、猫狗收容所（牛客网）</h2><p>给定一个栈及一个操作序列int[][2] <strong>ope</strong>(C++中为vector&lt;vector<int>&gt;)，代表所进行的入栈出栈操作。第一个元素为1则入栈，第二个元素为数的正负号；第一个元素为2则出栈，第二个元素若为0则出最先入栈的那个数，为1则出最先入栈的正数，为-1则出最先入栈的负数。请按顺序返回出栈的序列，并做异常处理忽略错误操作。</p>
+<p>测试样例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[1,1],[1,-1],[2,0],[2,-1]]</span><br><span class="line">返回：[1,-1]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/6235a76b1e404f748f7c820583125c50?tpId=8&amp;&amp;tqId=11010&amp;rp=3&amp;ru=/activity/oj&amp;qru=/ta/cracking-the-coding-interview/question-ranking">https://www.nowcoder.com/practice/6235a76b1e404f748f7c820583125c50?tpId=8&amp;&amp;tqId=11010&amp;rp=3&amp;ru=/activity/oj&amp;qru=/ta/cracking-the-coding-interview/question-ranking</a></p>
+<h2 id="10、约瑟夫问题2"><a href="#10、约瑟夫问题2" class="headerlink" title="10、约瑟夫问题2"></a>10、约瑟夫问题2</h2><p>现有n个人围坐一圈，顺时针给大家编号，第一个人编号为1，然后顺时针开始报数。第一轮依次报1，2，1，2…没报1的人出局。接着第二轮再从上一轮最后一个报数的人开始依次报1，2，3，1，2，3…没报1的人都出局。以此类推直到剩下以后一个人。现给定一个int <strong>n</strong>，要求返回最后一个人的编号。</p>
+<p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/ff063da83b1a4d91913dd1b1e8b01466?tpId=8&amp;&amp;tqId=11045&amp;rp=2&amp;ru=/activity/oj&amp;qru=/ta/cracking-the-coding-interview/question-ranking">https://www.nowcoder.com/practice/ff063da83b1a4d91913dd1b1e8b01466?tpId=8&amp;&amp;tqId=11045&amp;rp=2&amp;ru=/activity/oj&amp;qru=/ta/cracking-the-coding-interview/question-ranking</a></p>
+<p>测试样例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">返回：5</span><br></pre></td></tr></table></figure>
+
+<h2 id="11、最近的请求次数"><a href="#11、最近的请求次数" class="headerlink" title="11、最近的请求次数"></a>11、最近的请求次数</h2><p>写一个 RecentCounter 类来计算特定时间范围内最近的请求。</p>
+<p>请你实现 RecentCounter 类：</p>
+<p>RecentCounter() 初始化计数器，请求数为 0 。<br>int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为单位的某个时间，并返回过去 3000 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在 [t-3000, t] 内发生的请求数。<br>保证每次对 ping 的调用都使用比之前更大的 t 值。</p>
+<p>示例 1：</p>
+<p>输入：<br>[“RecentCounter”, “ping”, “ping”, “ping”, “ping”]<br>[[], [1], [100], [3001], [3002]]<br>输出：<br>[null, 1, 2, 3, 3]</p>
+<p>解释：<br>RecentCounter recentCounter = new RecentCounter();<br>recentCounter.ping(1);     // requests = [1]，范围是 [-2999,1]，返回 1<br>recentCounter.ping(100);   // requests = [<u>1</u>, <u>100</u>]，范围是 [-2900,100]，返回 2<br>recentCounter.ping(3001);  // requests = [<u>1</u>, <u>100</u>, <u>3001</u>]，范围是 [1,3001]，返回 3<br>recentCounter.ping(3002);  // requests = [1, <u>100</u>, <u>3001</u>, <u>3002</u>]，范围是 [2,3002]，返回 3</p>
+<p>提示：</p>
+<p>1 &lt;= t &lt;= 104<br>保证每次对 ping 的调用都使用比之前更大的 t 值<br>至多调用 ping 方法 104 次</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-recent-calls">https://leetcode-cn.com/problems/number-of-recent-calls</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/2020/11/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/">栈和队列</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问  的个人博客"></a></p>
+        <p><span>发布时间:</span>2020年11月05日 - 21时13分</p>
+        <p><span>最后更新:</span>2020年11月05日 - 21时13分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/11/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" title="栈和队列">http://example.com/2020/11/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://example.com/2020/11/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/　　作者: " title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a  href="/2020/10/28/%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">图书管理系统</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97-%E5%8A%9B%E6%89%A3"><span class="toc-number">1.</span> <span class="toc-text">栈和队列(力扣)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E8%82%A1%E7%A5%A8%E4%BB%B7%E6%A0%BC%E8%B7%A8%E5%BA%A6"><span class="toc-number">1.1.</span> <span class="toc-text">1、股票价格跨度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC"><span class="toc-number">1.2.</span> <span class="toc-text">2、逆波兰表达式求值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%A0%88%E7%9A%84%E5%BC%B9%E5%87%BA%E5%8E%8B%E5%85%A5%E5%BA%8F%E5%88%97%EF%BC%88%E7%89%9B%E5%AE%A2%E7%BD%91%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">3、栈的弹出压入序列（牛客网）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%A3%92%E7%90%83%E6%AF%94%E8%B5%9B"><span class="toc-number">1.4.</span> <span class="toc-text">4、棒球比赛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E6%AF%94%E8%BE%83%E5%90%AB%E9%80%80%E6%A0%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">1.5.</span> <span class="toc-text">5、比较含退格的字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E8%AE%BE%E8%AE%A1%E5%BE%AA%E7%8E%AF%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97"><span class="toc-number">1.6.</span> <span class="toc-text">6、设计循环双端队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81%E5%91%98%E5%B7%A5%E9%87%8D%E8%A6%81%E6%80%A7%EF%BC%88%E5%A4%AA%E8%8F%9C%EF%BC%8C%E4%BB%A5%E4%B8%8B%E9%A2%98%E7%9B%AE%E8%BF%87%E6%AE%B5%E6%97%B6%E9%97%B4%E5%86%8D%E5%86%99%EF%BC%89"><span class="toc-number">1.7.</span> <span class="toc-text">7、员工重要性（太菜，以下题目过段时间再写）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81%E5%91%98%E5%B7%A5%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-number">1.8.</span> <span class="toc-text">8、员工的重要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%E3%80%81%E7%8C%AB%E7%8B%97%E6%94%B6%E5%AE%B9%E6%89%80%EF%BC%88%E7%89%9B%E5%AE%A2%E7%BD%91%EF%BC%89"><span class="toc-number">1.9.</span> <span class="toc-text">9、猫狗收容所（牛客网）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10%E3%80%81%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%982"><span class="toc-number">1.10.</span> <span class="toc-text">10、约瑟夫问题2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11%E3%80%81%E6%9C%80%E8%BF%91%E7%9A%84%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0"><span class="toc-number">1.11.</span> <span class="toc-text">11、最近的请求次数</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section class="changyan" id="comments">
+  <!--<div id="uyan_frame"></div>-->
+  <div id="SOHUCS"></div>
+  <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+  <script type="text/javascript">
+    window.changyan.api.config({
+      appid: 'cyv6KvDG2',
+      conf: 'xxxxxxxxx'
+    });
+  </script>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/2020/10/28/%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="下一篇: 图书管理系统">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/11/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/">栈和队列</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/28/%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">图书管理系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/27/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E5%BC%82%E5%B8%B8%E7%BB%83%E4%B9%A0/">字符串和异常练习</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/23/%E6%97%A0%E5%A4%B4%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/">无头双向链表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/22/%E9%93%BE%E8%A1%A8%E4%B9%A0%E9%A2%98/">链表习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/20/%E5%8D%95%E9%A1%B9%E6%97%A0%E5%A4%B4%E6%97%A0%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/">单项无头无循环链表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/%E5%85%A5%E9%97%A8%E6%9D%82%E8%AE%B0/">入门杂记</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/19/%E6%89%8B%E6%92%95%E9%A1%BA%E5%BA%8F%E8%A1%A8/">手撕顺序表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/18/%E6%95%B0%E7%BB%84%E7%BB%83%E4%B9%A0/">数组练习</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/18/%E6%95%B0%E7%BB%84%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">数组的创建和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/18/%E9%87%8D%E8%BD%BD-%E9%80%92%E5%BD%92/">重载&递归</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/16/%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/">方法的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/16/%E7%A8%8B%E5%BA%8F%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6%E4%B9%A0%E9%A2%98/">程序逻辑控制习题</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/15/hello-world/">Hello World</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2020 John Doe
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'xxxxx', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?xxxxxx";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
